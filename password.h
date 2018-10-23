@@ -16,31 +16,30 @@
 
 using namespace std;
 
-struct key {string nom;int id;};
+struct key {wxString nom;int id;};
 /********************************************************************************/
 
 class Clavier:public wxPanel{
 	
 	wxString text;
 		
-	public:
-	vector <wxButton*> touches;//Touche clavier	
-
-	const array <string,10*3> touch {{"Q","W","E","R","T","Y","U","I","O","P",
-									"CAPS","A","S","D","F","G","H","J","K","L",
-									"SHIFT","<","Z","X","C","V","B","N","M","@"}};
-	vector <key> id;
-	
+	public:	
 	Clavier (wxFrame* parent); //Constructor 
 	void showButtons();
-   //EVT_MENU(wxID_ANY,    MiFrame::OnClick)
 	void keyPressed(wxCommandEvent& event);
 				
 	private:
-    /*Macro para informar a wxWidgets de la gestion de eventos
-    *Declara la tabla de eventos en esta clase ,mas abajo
-    * la implemento entre BEGIN_ y END_EVENT_TABLE
-    */
+	
+	void initialiceClavier(wxPanel* fenetre,wxSize taille);//initialice Touches clavier et ID
+	wxString idToButtonLabel(int _id);//retourne label du bouton 
+	vector <wxButton*> touches;//vector de wxButtons touche(s)  clavier	
+	vector <key> id;//vector avec struct key {nom touche , et son id} pour trouver la letre
+	//array pour definir un clavier	
+	const array <string,10*3> touch {{"Q","W","E","R","T","Y","U","I","O","P",
+									"CAPS","A","S","D","F","G","H","J","K","L",
+									"SHIFT","<","Z","X","C","V","B","N","M","@"}};
+	
+	
     DECLARE_EVENT_TABLE()			
 };
 /********************************************************************************/

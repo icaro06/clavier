@@ -26,24 +26,7 @@ void Clavier::showButtons(){
     wxPanel* fenetre=new wxPanel(this,wxID_ANY,wxDefaultPosition,wxSize( (taille.x) * clavier->GetCols(),taille.y*clavier->GetCols()));
     
  	/************************************************************************************************************************/        
-
-    //Buttons , cree un vector de differentes  touches ... un clavier
-	
-	for (char bouton='0';bouton<='9';bouton++){//Cree touches  numeriques
-
-		touches.push_back(new wxButton(fenetre,wxID_ANY,bouton,wxDefaultPosition,taille));
-	}
-	
-	//Touche alphabet
-	//		wxWindowIDRef ID_BOTx = wxWindow::NewControlId();
-	
-	for (auto bouton:touch){
-		touches.push_back(new wxButton(fenetre,wxID_ANY,bouton,wxDefaultPosition,taille));
-		id.push_back( key { (touches.back()->GetLabel) ,(touches.back()->GetId()) } );
-		 
-		}	
-
-  
+	initialiceClavier(fenetre,taille);
     /************************************************************************************************************************/    
     
     //Ajoute des touches au wxFlexSizer clavier                  
@@ -61,11 +44,33 @@ void Clavier::showButtons(){
 
 /********************************************************************************/
 void Clavier::keyPressed(wxCommandEvent& event){
-	cout <<" key " <<event.GetId()<<endl;//OK 
+	cout <<" key " <<event.GetId()<< " = "<<idToButtonLabel(event.GetId())<<endl;//OK 
 		//cout <<" key " <<event.GetLabel()<<endl;
 }
 
+/********************************************************************************/
+void Clavier::initialiceClavier(wxPanel* fenetre,wxSize taille){
+	
+    //Buttons , cree un vector de differentes  touches ... un clavier
+	
+	for (char bouton='0';bouton<='9';bouton++){//Cree touches  numeriques
+		touches.push_back(new wxButton(fenetre,wxID_ANY,bouton,wxDefaultPosition,taille));
+		id.push_back(key{touches.back()->GetLabel(),touches.back()->GetId()});		
+	}
+	
+	//Touches alphabet
+	
+	for (auto bouton:touch){
+		touches.push_back(new wxButton(fenetre,wxID_ANY,bouton,wxDefaultPosition,taille));
+		id.push_back(key{touches.back()->GetLabel(),touches.back()->GetId()});
+		}	
+}
 
+/********************************************************************************/
+wxString Clavier::idToButtonLabel(int _id){//retourne label du bouton 
+	for (auto bouton:id){if (bouton.id==_id){return bouton.nom;}		}
+	return "";
+}
 /********************************************************************************/
 /********************************************************************************/
 
