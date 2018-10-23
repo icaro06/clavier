@@ -2,8 +2,13 @@
 
 /***************************  DEFINITIONS   *************************************/
 /********************************************************************************/
+
+/********************************************************************************/
+/********************************************************************************/
+
 Clavier::Clavier(wxFrame* parent):wxPanel(parent){//Constructeur principal
-	showButtons();
+
+	showButtons();//Print Buttons
 }
 
 /********************************************************************************/
@@ -25,21 +30,22 @@ void Clavier::showButtons(){
     //Buttons , cree un vector de differentes  touches ... un clavier
 	
 	for (char bouton='0';bouton<='9';bouton++){//Cree touches  numeriques
+
 		touches.push_back(new wxButton(fenetre,wxID_ANY,bouton,wxDefaultPosition,taille));
 	}
-        
-	for (char bouton='A';bouton<='Z';bouton++){//Cree touches letres
+	
+	//Touche alphabet
+	//		wxWindowIDRef ID_BOTx = wxWindow::NewControlId();
+	
+	for (auto bouton:touch){
 		touches.push_back(new wxButton(fenetre,wxID_ANY,bouton,wxDefaultPosition,taille));
-	}        
-    
-    // Touche Enter
-    touches.push_back(new wxButton(fenetre,wxID_ANY,"ENTER",wxDefaultPosition,taille));
-    
-    //Touche Mayuscule
-    touches.push_back(new wxButton(fenetre,wxID_ANY,"CAPS",wxDefaultPosition,taille));    
+		id.push_back( key { (touches.back()->GetLabel) ,(touches.back()->GetId()) } );
+		 
+		}	
+
   
     /************************************************************************************************************************/    
-
+    
     //Ajoute des touches au wxFlexSizer clavier                  
     for (auto touche :touches){clavier->Add(touche,wxEXPAND);		}
     
@@ -48,7 +54,18 @@ void Clavier::showButtons(){
 	//Ajoute le clavier au sizer principal
     fenetreSizer->Add(clavier);//Ajoute wxBoxSizer HOzl VERTICAL
 
+	//La fenetre wxPanel utilisse le sizer wxBoxSizer fenetre sizer 
 	fenetre->SetSizer(fenetreSizer);    	
 }
+
+
+/********************************************************************************/
+void Clavier::keyPressed(wxCommandEvent& event){
+	cout <<" key " <<event.GetId()<<endl;//OK 
+		//cout <<" key " <<event.GetLabel()<<endl;
+}
+
+
 /********************************************************************************/
 /********************************************************************************/
+

@@ -36,4 +36,18 @@ public:
     } 
 };
  
+ 
+ /*Implementacion , MiApp
+*Cuando se crea el objeto MiApp se asigna a la variable global wxTheApp
+* pero mejor que hacer un CAST emplear el MACRO  DECLARE_APP despues de
+* la declaracion de la clase , wxGetApp retorna una ref. al objeto MiApp
+*/
+DECLARE_APP(Run)
+ 
+//Macro que Proporciona a wxWidgets los medios de crear el objeto MiApp
 IMPLEMENT_APP(Run)
+ 
+
+
+/********************************************************************************/
+
