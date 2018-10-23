@@ -16,30 +16,25 @@
 
 using namespace std;
 
-struct key {wxString nom;int id;};
+/********************************************************************************/
+#define TTOUCHE 50,50
+
 /********************************************************************************/
 
-class Clavier:public wxPanel{
-	
-	wxString text;
-		
-	public:	
-	Clavier (wxFrame* parent); //Constructor 
-	void showButtons();
-	void keyPressed(wxCommandEvent& event);
+class Clavier:public wxPanel{			
+	public:		
+	Clavier (wxFrame* parent); //constructeur par défaut
 				
 	private:
-	
+	void showButtons();//Affiche les boutons dans une fenêtre wxPanel
+	void keyPressed(wxCommandEvent& event);//Touche enfoncée
 	void initialiceClavier(wxPanel* fenetre,wxSize taille);//initialice Touches clavier et ID
-	wxString idToButtonLabel(int _id);//retourne label du bouton 
-	vector <wxButton*> touches;//vector de wxButtons touche(s)  clavier	
-	vector <key> id;//vector avec struct key {nom touche , et son id} pour trouver la letre
-	//array pour definir un clavier	
+	
+	vector <wxButton*> touches;//vecteur de wxButtons touche(s)  clavier	
+	//array pour definir un clavier	QWERTY
 	const array <string,10*3> touch {{"Q","W","E","R","T","Y","U","I","O","P",
 									"CAPS","A","S","D","F","G","H","J","K","L",
 									"SHIFT","<","Z","X","C","V","B","N","M","@"}};
-	
-	
     DECLARE_EVENT_TABLE()			
 };
 /********************************************************************************/
@@ -48,27 +43,8 @@ const wxWindowIDRef ID_BOT1 = wxWindow::NewControlId();
 
 /********************************************************************************/
 
-
-
 BEGIN_EVENT_TABLE(Clavier, wxPanel)
-
-// some useful events
-/*
- EVT_MOTION(wxImagePanel::mouseMoved)
- EVT_LEFT_DOWN(wxImagePanel::mouseDown)
- EVT_LEFT_UP(wxImagePanel::mouseReleased)
- EVT_RIGHT_DOWN(wxImagePanel::rightClick)
- EVT_LEAVE_WINDOW(wxImagePanel::mouseLeftWindow)
- EVT_KEY_DOWN(wxImagePanel::keyPressed)
- EVT_KEY_UP(wxImagePanel::keyReleased)
- EVT_MOUSEWHEEL(wxImagePanel::mouseWheelMoved)
- */
-
-//Procesa un wxEVT_ wxID_ANY
-//Al anadir un EVT_BUTTON a una EVENT_TABLE se intercepta un wxCommandEvent generador por un wxButton
-//Internamente el boton intercepta EVT_LEFT_DOWN generando el e evento como resultado
-EVT_BUTTON(wxID_ANY,Clavier::keyPressed) //   EVT_BUTTON(wxID_OK,     MiFrame::OnButtonOk)
-
+	EVT_BUTTON(wxID_ANY,Clavier::keyPressed) //   EVT_BUTTON(wxID_OK,     MiFrame::OnButtonOk)
 END_EVENT_TABLE()
 
 
